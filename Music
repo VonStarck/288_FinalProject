@@ -1,0 +1,86 @@
+
+#define G  55
+#define A  57
+#define B  59
+#define C  60
+#define sC 61
+#define D  62
+#define sD 63
+#define E  64
+#define F  65
+#define sF 66
+#define oG 67
+
+
+
+
+
+
+void winning(){
+//	int index[4] = {0, 1, 2, 3};
+	int num_notes = 16;
+
+	/*
+	 * Each measure is considered a "song"
+	 * Songs can only be 16 notes long
+	 */
+	unsigned char meas1[16] = {G, A, B, sC, G, A, B, C, A, B, C, D, A, B, C, D};
+	unsigned char meas2[16] = {A, B, sC, sD, A, B, C, D, B, C, D, E, B, C, D, E};
+	unsigned char meas3[16] = {B, sC, sD, E, C, D, E, F, D, E, F, oG, D, E, F, oG };
+
+	// Start with a pause, then have the Ba Bumm BAA BUMMMM
+	// Using 30 because the roomba won't reckognise it, so it will be the pause
+	//							  A   B   C   C#
+	unsigned char meas4[5] = {30, 69, 71, 72, 73};
+	unsigned char meas4_length[5] = {16, 8, 8, 8, 32};
+
+	unsigned char length[16] = {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
+
+	// These are what is sent to the loadSong/playSong functions as pointers to the notes.
+	unsigned char *note = meas1;
+	unsigned char *dur = length;
+
+	oi_loadSong(0, num_notes, note, dur);
+
+	unsigned char *note2 = meas2;
+	oi_loadSong(1, num_notes, note2, dur);
+
+	unsigned char *note3 = meas3;
+	oi_loadSong(2, num_notes, note3, dur);
+
+	unsigned char *note4 = meas4;
+	oi_loadSong(3, 5, note4, meas4_length);
+
+
+	//oi_play_song(0);
+
+	//timer_waitMillis(2500);
+
+	//oi_play_song(1);
+
+	//timer_waitMillis(2500);
+
+	//oi_play_song(2);
+
+	//timer_waitMillis(2500);
+
+	oi_play_song(3);
+
+
+}
+
+
+
+
+void electric_daisy_roomba() {
+
+	unsigned char meas1[16] = { 45, 41, A, 41, 45, 41, A, 41, 45, 41, A, 41, 45, 41, A, 41};
+	unsigned char length[16] = {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8};
+
+	unsigned char *note = meas1;
+	unsigned char *dur = length;
+	int index = 0;
+
+	oi_loadSong(index, 16, note, dur);
+	oi_play_song(index);
+}
